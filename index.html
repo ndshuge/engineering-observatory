@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1322">
+<meta name="robots" content="noindex,nofollow">
+<title>工程航迹 · Engineering Observatory</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1120;--panel:#142037;--border:#273955;--ink:#ecf4fc;--muted:#93a8c2;--teal:#49dcca;--blue:#8fa8ff;--amber:#f4b876}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse 62% 28% at 20% -7%,#1a4252,transparent 95%),radial-gradient(ellipse 39% 37% at 94% 0%,#22264a,transparent 97%),var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,system-ui,"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:1270px;margin:auto;padding:38px clamp(14px,4vw,50px) 90px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:700;color:var(--teal)}h1{font-size:clamp(34px,5vw,59px);letter-spacing:-1.6px;line-height:1.16;margin:9px 0}h2{font-size:18px;letter-spacing:-.2px;margin:0}p{margin:0}a{color:#91e8e2;text-decoration:none}a:hover{text-decoration:underline}
+.muted{color:var(--muted);font-size:13px}.lead{max-width:740px;color:#afc2d7;margin:12px 0 18px}.header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin:5px 0 28px}.hint-pill{padding:7px 13px;border:1px solid #345d63;background:#162f38;color:#b7fff0;font-size:12px;border-radius:25px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:18px}button,select{background:#15243c;color:#e9f4ff;border:1px solid var(--border);border-radius:9px;padding:9px 12px;font:inherit;cursor:pointer}button[aria-pressed="true"]{background:#23545d;border-color:#4c9e99}select{max-width:200px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.kpi,.panel{background:linear-gradient(155deg,#16253c,#111a2d);border:1px solid var(--border);border-radius:17px;min-width:0;box-shadow:0 10px 30px #0002}.kpi{padding:19px 20px;border-top:2px solid var(--teal)}.kpi:nth-child(2){border-top-color:var(--blue)}.kpi:nth-child(3){border-top-color:#bea6f3}.kpi:nth-child(4){border-top-color:var(--amber)}.number{font-size:34px;font-weight:720;letter-spacing:-1.2px;line-height:1.4}.panel{padding:21px 23px;margin-top:16px}.grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,.9fr);gap:15px}.grid .panel{height:100%}
+.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.section-head p{color:var(--muted);font-size:12px;margin-top:5px}
+.chart{min-height:260px}.chart svg{width:100%;height:auto;display:block}.line{stroke:var(--teal);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.avg{stroke:var(--blue);stroke-width:2;stroke-dasharray:6 5;fill:none;stroke-linejoin:round}.gridline{stroke:#314159;stroke-width:1}.ticks{font-size:12px;fill:#9eabc1}.point{fill:#a8fff2;stroke:#0d3740;stroke-width:2;cursor:pointer}.legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap;color:#a5b5cd;font-size:12px}.legend strong{color:var(--teal)}.notes{margin:12px 0;color:#b4c2d7;font-size:12px}
+.projects{display:grid;gap:14px;margin:17px 0}.project{cursor:pointer}.project-head{display:flex;justify-content:space-between;gap:10px;font-size:13px}.track{margin-top:6px;height:6px;background:#28394c;border-radius:20px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:20px}
+.heat-wrap{overflow-x:auto;margin:14px 0 9px}.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,15px);gap:4px;width:max-content}.heat a{width:15px;height:15px;border-radius:3px;border:1px solid #324259;background:#1b293d}.heat a[data-t="1"]{background:#29535c}.heat a[data-t="2"]{background:#297b82}.heat a[data-t="3"]{background:#36aa9f}.heat a[data-t="4"]{background:#5de0b8}.heat a[data-t="5"]{background:#6c7481}.week-graph{display:flex;height:145px;gap:8px;align-items:end;margin:24px 4px 0;border-bottom:1px solid #33465e}.week-col{flex:1;display:flex;align-items:end;justify-content:center;height:100%}.week-col span{height:4px;width:min(48px,100%);background:linear-gradient(180deg,#93a6ff,#5066ba);border-radius:6px 6px 0 0}.week-tags{display:flex;gap:8px;color:var(--muted);font-size:11px}.week-tags span{flex:1;text-align:center;margin-top:7px}
+.days{display:grid;gap:9px;max-height:470px;overflow:auto;margin-top:16px}.day{padding:12px 13px;border:1px solid #2d4057;border-radius:10px;background:#142238;display:grid;grid-template-columns:102px minmax(0,1fr) 90px;gap:10px;align-items:center;color:#eaf4ff}.day:hover{border-color:#61c9c4;text-decoration:none}.day-date{font-size:13px;font-variant-numeric:tabular-nums}.day-projects{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#9fb3cb}.day-count{font-size:12px;text-align:right;color:var(--teal)}
+.outcomes{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.outcome{background:#19273d;border:1px solid #30425c;border-radius:12px;padding:10px 13px;flex:1 0 140px}.outcome strong{display:block;font-size:21px}.outcome small{color:#a8bad1}.footer{margin-top:25px;color:var(--muted);font-size:12px;max-width:970px}.divider{height:1px;background:#2c3a50;margin:18px 0}
+@media(max-width:960px){.grid{grid-template-columns:1fr}.grid .panel{height:auto}}@media(max-width:660px){main{padding:23px 12px 65px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:13px;min-height:108px}.number{font-size:29px}.panel{padding:16px 14px}.day{grid-template-columns:78px minmax(0,1fr) 70px;gap:6px}.day-date{font-size:11px}.day-count{font-size:11px}.hint-pill{display:none}}
+</style>
+</head>
+<body>
+<main>
+<header class="header">
+<div>
+<div class="eyebrow">Engineering Observatory · Personal R&D Atlas</div>
+<h1>工程航迹<span style="color:var(--teal)">.</span></h1>
+<p class="lead">用数据回望项目是怎样成长的。记录每天的研发活动、每周趋势、项目分布，以及那些同样值得记住的失败实验。</p>
+<div class="muted" id="coverage">读取历史数据中……</div>
+</div><div class="hint-pill">Public overview · Daily snapshot</div>
+</header>
+<div class="controls" aria-label="筛选">
+<button data-range="7">7 天</button><button data-range="14">14 天</button><button data-range="30">30 天</button><button data-range="0" aria-pressed="true">全历史</button>
+<select id="project"><option value="">全部工程</option></select>
+<select id="measure"><option value="commits">Git 提交</option><option value="project_count">项目类别数</option><option value="events">证据事件数</option></select>
+</div>
+<section class="kpis">
+<div class="kpi"><div class="muted">归档工程日</div><div class="number" id="stat-days">—</div><div class="muted">按北京时间 04:00 划分</div></div>
+<div class="kpi"><div class="muted">去重 Git 活动</div><div class="number" id="stat-commits">—</div><div class="muted">并非工时或成果数</div></div>
+<div class="kpi"><div class="muted">工程项目类别</div><div class="number" id="stat-projects">—</div><div class="muted">按已归档名称分类</div></div>
+<div class="kpi"><div class="muted">验收/实验事件</div><div class="number" id="stat-events">—</div><div class="muted">通过、失败及阻塞均计入</div></div>
+</section>
+<div class="grid">
+<section class="panel"><div class="section-head"><div><h2>研发趋势</h2><p>每日数据与最近 7 个已归档工程日的平均值；点击节点查看单日摘要</p></div></div><div id="chart" class="chart" role="img" aria-label="每日研发活动趋势图"></div><div class="legend"><span><strong>━</strong> 日值</span><span style="color:var(--blue)">┄┄ 7 日平均</span></div><div id="point" class="notes">选择图中的日期查看数值</div></section>
+<section class="panel"><h2>项目覆盖</h2><p class="muted">被日报提及的工程日数，而非投入工时</p><div class="projects" id="projects"></div></section>
+</div>
+<div class="grid">
+<section class="panel"><h2>活动热力图</h2><p class="muted">深色代表 Git 证据缺失或数量较少，不代表休息</p><div class="heat-wrap"><div class="heat" id="heat"></div></div><div class="notes">灰色 = 当天 Git 数据尚未同步；点击色块查看概要。</div></section>
+<section class="panel"><h2>每周研发活动</h2><p class="muted">完整自然周与不完整周分别保留，趋势仅供观察</p><div class="week-graph" id="week-bars"></div><div class="week-tags" id="week-tags"></div></section>
+</div>
+<div class="grid">
+<section class="panel"><h2>最近工程日</h2><p class="muted">公开版仅显示统计摘要，完整日报保留于原私有仓库</p><div class="days" id="days"></div></section>
+<section class="panel"><h2>验证与失败的轨迹</h2><p class="muted">只公开事件类别及数量，不公开内部测试素材与证据路径</p><div class="outcomes" id="outcomes"></div><div class="divider"></div><p class="muted">一次测试 PASS 不代表项目全部完成。项目未记录事件时不能推断没有开展验证；不同套件不合并为一个总通过率。</p></section>
+</div>
+<footer class="footer">数据每天从私人研发记录中生成公开摘要，可能存在延迟或缺口。此页面不提供私有仓库的源码、原始对话、文件路径、证据哈希及全文日报。Git 提交数量不能评价研发质量；来源不完整的日期明确标为待同步。</footer>
+</main>
+<script id="public-data" type="application/json">{"schema":"engineering-public-v1","notice":"数据由 Git 提交与私有日志汇总；提交数不等于工时或质量。来源缺失的日期标记为待同步。","daily":[{"date":"2026-09-16","commits":12,"source":"git","projects":["Project Lab","其他项目"],"byProject":{"其他项目":5,"Project Lab":7}},{"date":"2026-09-17","commits":66,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目"],"byProject":{"Mice Hole / OpenHanako":7,"Project Lab":49,"其他项目":10}},{"date":"2026-09-18","commits":151,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目"],"byProject":{"其他项目":38,"Mice Hole / OpenHanako":21,"Project Lab":92}},{"date":"2026-09-19","commits":29,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目","小芽 OPC"],"byProject":{"其他项目":7,"Mice Hole / OpenHanako":4,"Project Lab":18}},{"date":"2026-09-20","commits":43,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目"],"byProject":{"其他项目":12,"Mice Hole / OpenHanako":20,"Project Lab":11}},{"date":"2026-09-21","commits":45,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目"],"byProject":{"其他项目":29,"Mice Hole / OpenHanako":11,"Project Lab":5}},{"date":"2026-09-22","commits":17,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","其他项目"],"byProject":{"其他项目":8,"Mice Hole / OpenHanako":7,"Project Lab":2}},{"date":"2026-09-23","commits":40,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab"],"byProject":{"Mice Hole / OpenHanako":29,"Project Lab":11}},{"date":"2026-09-24","commits":51,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab"],"byProject":{"Mice Hole / OpenHanako":28,"Project Lab":23}},{"date":"2026-09-25","commits":72,"source":"git","projects":["Mice Hole / OpenHanako","Project Lab","小芽 OPC"],"byProject":{"Mice Hole / OpenHanako":17,"Project Lab":55}},{"date":"2026-09-26","commits":222,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","Project Lab"],"byProject":{"Mouse House":148,"Mice Hole / OpenHanako":34,"Project Lab":40}},{"date":"2026-09-27","commits":271,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","Project Lab","其他项目"],"byProject":{"Mouse House":169,"其他项目":32,"Mice Hole / OpenHanako":69,"Project Lab":1}},{"date":"2026-09-28","commits":71,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","其他项目"],"byProject":{"Mouse House":24,"Mice Hole / OpenHanako":5,"其他项目":42}},{"date":"2026-09-29","commits":4,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","Project Strike"],"byProject":{"Project Strike":4}},{"date":"2026-09-30","commits":12,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","Project Strike"],"byProject":{"Project Strike":12}},{"date":"2026-10-01","commits":null,"source":"incomplete","projects":["Mice Hole / OpenHanako"],"byProject":{}},{"date":"2026-10-02","commits":null,"source":"incomplete","projects":["Mice Hole / OpenHanako","Project Strike"],"byProject":{}},{"date":"2026-10-03","commits":null,"source":"incomplete","projects":["其他项目"],"byProject":{}},{"date":"2026-10-04","commits":null,"source":"incomplete","projects":["Mice Hole / OpenHanako"],"byProject":{}},{"date":"2026-10-05","commits":null,"source":"incomplete","projects":["Mice Hole / OpenHanako","Project Strike"],"byProject":{}},{"date":"2026-10-06","commits":null,"source":"incomplete","projects":["Mice Hole / OpenHanako","Mouse House","Project Strike"],"byProject":{}},{"date":"2026-10-07","commits":2,"source":"git","projects":["Mice Hole / OpenHanako","Mouse House","Project Strike","其他项目"],"byProject":{"其他项目":2}},{"date":"2026-10-08","commits":null,"source":"incomplete","projects":["Mouse House","Project Strike"],"byProject":{}},{"date":"2026-10-09","commits":41,"source":"git","projects":["AI 学院","EvoWorld","Mice Hole / OpenHanako","Physics Frontier Lab","其他项目"],"byProject":{"其他项目":37,"EvoWorld":1,"Mice Hole / OpenHanako":2,"Physics Frontier Lab":1}},{"date":"2026-10-10","commits":591,"source":"git","projects":["AI 学院","EvoWorld","Mice Hole / OpenHanako","Mouse House","Physics Frontier Lab","其他项目","山河为证"],"byProject":{"其他项目":493,"AI 学院":7,"EvoWorld":3,"Mice Hole / OpenHanako":35,"Mouse House":19,"Physics Frontier Lab":3,"山河为证":31}},{"date":"2026-10-11","commits":19,"source":"git","projects":["EvoWorld","Physics Frontier Lab","其他项目","山河为证"],"byProject":{"其他项目":12,"EvoWorld":2,"Physics Frontier Lab":2,"山河为证":3}},{"date":"2026-10-12","commits":5,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","小芽 OPC","工程图鉴"],"byProject":{"工程图鉴":5}},{"date":"2026-10-13","commits":35,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","中迪 AI","小芽 OPC"],"byProject":{"Mice Hole / OpenHanako":4,"中迪 AI":31}},{"date":"2026-10-14","commits":35,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","中迪 AI","小芽 OPC"],"byProject":{"中迪 AI":35}},{"date":"2026-10-15","commits":23,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","中迪 AI"],"byProject":{"Mice Hole / OpenHanako":12,"中迪 AI":11}},{"date":"2026-10-16","commits":11,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","中迪 AI","其他项目"],"byProject":{"Mice Hole / OpenHanako":2,"中迪 AI":1,"其他项目":8}},{"date":"2026-10-17","commits":4,"source":"git","projects":["AI 学院","FactGuard","Mice Hole / OpenHanako","中迪 AI"],"byProject":{"Mice Hole / OpenHanako":4}},{"date":"2026-10-18","commits":16,"source":"git","projects":["Mice Hole / OpenHanako","其他项目"],"byProject":{"Mice Hole / OpenHanako":7,"其他项目":9}}],"weekly":[{"week":"2026-W38","activeDays":5},{"week":"2026-W39","activeDays":7},{"week":"2026-W40","activeDays":7},{"week":"2026-W41","activeDays":7},{"week":"2026-W42","activeDays":6}],"events":[{"date":"2026-10-10","project":"Mice Hole / OpenHanako","status":"prerelease"},{"date":"2026-10-15","project":"Mice Hole / OpenHanako","status":"released"},{"date":"2026-10-17","project":"FactGuard","status":"pass_offline"},{"date":"2026-10-17","project":"Mice Hole / OpenHanako","status":"released"},{"date":"2026-10-17","project":"AI 学院","status":"review_pending"},{"date":"2026-10-17","project":"中迪 AI","status":"negative"},{"date":"2026-10-18","project":"FactGuard","status":"blocked"},{"date":"2026-10-18","project":"FactGuard","status":"blocked"},{"date":"2026-10-18","project":"FactGuard","status":"pass_offline"},{"date":"2026-10-18","project":"FactGuard","status":"fail"},{"date":"2026-10-18","project":"FactGuard","status":"finding"},{"date":"2026-10-18","project":"Mice Hole / OpenHanako","status":"pass_local"},{"date":"2026-10-18","project":"Mice Hole / OpenHanako","status":"prerelease"},{"date":"2026-10-18","project":"Mice Hole / OpenHanako","status":"prerelease"}],"statusLabels":{"pass_offline":"离线测试通过","pass_local":"本机测试通过","fail":"失败实验","blocked":"仍有阻塞","negative":"负面实验","finding":"新发现","review_pending":"待审核","released":"正式发布","prerelease":"测试版发布"}}</script>
+<script>
+(function(){
+"use strict";
+var db=JSON.parse(document.getElementById("public-data").textContent);
+var range=0,project="",metric="commits";
+var byId=function(id){return document.getElementById(id);};
+var sum=function(a,k){return a.reduce(function(t,d){return t+(Number(d[k])||0);},0);};
+var fmt=function(n){return new Intl.NumberFormat("zh-CN").format(n);};
+var all=db.daily,es=db.events;
+var indexed={};es.forEach(function(e){(indexed[e.date]=indexed[e.date]||[]).push(e);});
+function getDays(){var a=all.filter(function(d){return !project||d.projects.indexOf(project)>-1;});return range?a.slice(-range):a;}
+function value(d){if(metric==="commits")return project?(d.byProject[project]||0):(d.commits||0);
+if(metric==="project_count")return project?1:d.projects.length;
+return (indexed[d.date]||[]).filter(function(e){return !project||e.project===project;}).length;}
+function node(tag,attrs){var el=document.createElementNS("http://www.w3.org/2000/svg",tag);Object.keys(attrs).forEach(function(k){el.setAttribute(k,attrs[k]);});return el;}
+function chart(a){var root=byId("chart");root.replaceChildren();if(!a.length){root.textContent="当前条件下没有归档数据";return;}
+var W=850,H=285,L=42,R=18,T=18,B=46;var v=a.map(value);
+var avg=v.map(function(_,i){var window=v.slice(Math.max(0,i-6),i+1);return window.reduce(function(p,c){return p+c;},0)/window.length;});
+var max=Math.max(1,Math.ceil(Math.max.apply(null,v.concat(avg))*1.12));
+var point=function(i,z){return [L+(W-L-R)*(a.length===1?0.5:i/(a.length-1)),H-B-(H-B-T)*z/max];};
+var svg=node("svg",{viewBox:"0 0 "+W+" "+H,role:"presentation"});
+for(var j=0;j<=4;j++){var y=T+(H-B-T)*j/4;svg.appendChild(node("line",{x1:L,y1:y,x2:W-R,y2:y,class:"gridline"}));var t=node("text",{x:L-7,y:y+3,class:"ticks","text-anchor":"end"});t.textContent=Math.round(max*(1-j/4));svg.appendChild(t);}
+svg.appendChild(node("polyline",{points:v.map(function(n,i){return point(i,n).join(",");}).join(" "),class:"line"}));
+svg.appendChild(node("polyline",{points:avg.map(function(n,i){return point(i,n).join(",");}).join(" "),class:"avg"}));
+var step=Math.max(1,Math.ceil(a.length/8));
+a.forEach(function(d,i){var p=point(i,v[i]);if(i%step===0||i===a.length-1){var t=node("text",{x:p[0],y:H-14,class:"ticks","text-anchor":"middle"});t.textContent=d.date.slice(5);svg.appendChild(t);}
+var c=node("circle",{cx:p[0],cy:p[1],r:5.5,class:"point",tabindex:0,role:"link","aria-label":d.date+" "+v[i]});
+var show=function(){byId("point").textContent=d.date+" | "+v[i]+" | "+d.projects.length+" 类工程"+(d.commits===null?" | Git 数据待同步":"");};
+c.addEventListener("focus",show);c.addEventListener("mouseover",show);c.addEventListener("click",function(){location.href="day/"+d.date+".html";});svg.appendChild(c);});
+root.appendChild(svg);byId("point").textContent="点击日期节点查看当天的公开工程摘要。";}
+function projects(a){var el=byId("projects");el.replaceChildren();var cnt={};a.forEach(function(d){d.projects.forEach(function(name){cnt[name]=(cnt[name]||0)+1;});});
+var ordered=Object.entries(cnt).sort(function(x,y){return y[1]-x[1];}).slice(0,9);var mx=ordered.length?ordered[0][1]:1;
+ordered.forEach(function(p){var r=document.createElement("div");r.className="project";r.tabIndex=0;
+var h=document.createElement("div");h.className="project-head";var name=document.createElement("span");name.textContent=p[0];var score=document.createElement("span");score.textContent=p[1]+" 天";h.append(name,score);
+var track=document.createElement("div");track.className="track";var bar=document.createElement("div");bar.className="bar";bar.style.width=p[1]/mx*100+"%";track.appendChild(bar);
+r.append(h,track);var fn=function(){project=(project===p[0]?"":p[0]);byId("project").value=project;render();};r.addEventListener("click",fn);r.addEventListener("keydown",function(e){if(e.key==="Enter")fn();});el.appendChild(r);});}
+function heat(a){var root=byId("heat");root.replaceChildren();if(!a.length)return;var dict={};a.forEach(function(d){dict[d.date]=d;});
+var first=new Date(a[0].date+"T00:00:00Z"),last=new Date(a[a.length-1].date+"T00:00:00Z");
+first.setUTCDate(first.getUTCDate()-(first.getUTCDay()+6)%7);last.setUTCDate(last.getUTCDate()+(7-last.getUTCDay())%7);
+var mx=Math.max(1,Math.max.apply(null,a.map(function(d){return d.commits||0;})));
+for(var x=new Date(first);x<=last;x.setUTCDate(x.getUTCDate()+1)){var date=x.toISOString().slice(0,10),d=dict[date];var n=d&&d.commits!==null?d.commits:null;
+var level=n===null?5:n===0?0:Math.min(4,Math.ceil(n/mx*4));var link=document.createElement("a");link.setAttribute("data-t",level);link.href=d?"day/"+date+".html":"#";link.title=date+": "+(n===null?"待同步":n+" 次提交");link.setAttribute("aria-label",link.title);root.appendChild(link);}}
+function weeks(a){var root=byId("week-bars"),tags=byId("week-tags");root.replaceChildren();tags.replaceChildren();var by={};
+a.forEach(function(d){var t=new Date(d.date+"T00:00:00Z");t.setUTCDate(t.getUTCDate()+3-(t.getUTCDay()+6)%7);var y=t.getUTCFullYear(),r=new Date(Date.UTC(y,0,4));
+var w=1+Math.round(((t-r)/86400000-3+(r.getUTCDay()+6)%7)/7),key=y+"-W"+String(w).padStart(2,"0");if(d.commits!==null){by[key]=(by[key]||0)+value(d);}});
+var entries=Object.entries(by).sort(function(x,y){return x[0].localeCompare(y[0]);});
+var mx=Math.max(1,Math.max.apply(null,entries.map(function(x){return x[1];})));
+entries.forEach(function(e){var col=document.createElement("div");col.className="week-col";var rect=document.createElement("span");rect.style.height=Math.max(2,e[1]/mx*100)+"%";rect.title=e[0]+": "+e[1]+" 条";col.appendChild(rect);root.appendChild(col);var label=document.createElement("span");label.textContent=e[0].slice(-3);tags.appendChild(label);});}
+function days(a){var root=byId("days");root.replaceChildren();a.slice().reverse().forEach(function(d){var link=document.createElement("a");link.className="day";link.href="day/"+d.date+".html";var left=document.createElement("span");left.className="day-date";left.textContent=d.date;var center=document.createElement("span");center.className="day-projects";center.textContent=d.projects.join(" · ")||"待分类";var right=document.createElement("span");right.className="day-count";right.textContent=d.commits===null?"待同步":value(d)+" 次";link.append(left,center,right);root.appendChild(link);});}
+function outcomes(a){var root=byId("outcomes");root.replaceChildren();var dates=new Set(a.map(function(d){return d.date;}));var cnt={};es.filter(function(e){return dates.has(e.date)&&(!project||e.project===project);}).forEach(function(e){cnt[e.status]=(cnt[e.status]||0)+1;});
+Object.entries(cnt).sort(function(x,y){return y[1]-x[1];}).forEach(function(p){var card=document.createElement("div");card.className="outcome";var n=document.createElement("strong");n.textContent=p[1];var txt=document.createElement("small");txt.textContent=db.statusLabels[p[0]]||"其他";card.append(n,txt);root.appendChild(card);});if(!Object.keys(cnt).length)root.textContent="暂无已分类的公开工程事件。";}
+function render(){var a=getDays(),names=new Set();a.forEach(function(d){d.projects.forEach(function(p){names.add(p);});});
+byId("stat-days").textContent=fmt(a.length);byId("stat-commits").textContent=fmt(a.reduce(function(x,d){return x+(d.commits===null?0:(project?d.byProject[project]||0:d.commits));},0));byId("stat-projects").textContent=names.size;
+byId("stat-events").textContent=es.filter(function(e){return a.some(function(d){return d.date===e.date;})&&(!project||e.project===project);}).length;
+byId("coverage").textContent=(a.length?a[0].date+" — "+a[a.length-1].date:"无可用日期")+" · "+a.filter(function(d){return d.commits===null;}).length+" 天 Git 证据待同步";
+chart(a);projects(a);heat(a);weeks(a);days(a);outcomes(a);document.querySelectorAll("[data-range]").forEach(function(b){b.setAttribute("aria-pressed",Number(b.dataset.range)===range?"true":"false");});}
+var options=new Set();all.forEach(function(d){d.projects.forEach(function(p){options.add(p);});});Array.from(options).sort().forEach(function(p){var o=document.createElement("option");o.value=p;o.textContent=p;byId("project").appendChild(o);});
+byId("project").addEventListener("change",function(e){project=e.target.value;render();});
+byId("measure").addEventListener("change",function(e){metric=e.target.value;render();});
+document.querySelectorAll("[data-range]").forEach(function(b){b.addEventListener("click",function(){range=Number(b.dataset.range);render();});});
+render();
+})();
+</script>
+</body>
+</html>
